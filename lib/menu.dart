@@ -1,69 +1,3 @@
-# Tugas 7
-## Perbedaan Stateless dan Stateful Widget
-Dalam pengembangan aplikasi Flutter, perbedaan utama antara stateless widget dan stateful widget adalah cara mereka mengelola perubahan data dan perilaku komponen UI. Berikut adalah perbedaan utama antara keduanya:
-
-Stateless widget adalah komponen UI yang tidak memiliki keadaan internal (state). Ini berarti bahwa setelah dibuat, widget ini tidak dapat berubah atau diperbarui.
-Stateless widget berguna ketika kita memiliki elemen UI yang tidak memerlukan perubahan atau interaksi selama siklus hidup aplikasi.
-Contoh penggunaan stateless widget termasuk teks statis, ikon, gambar, atau elemen UI yang tidak perlu berubah sepanjang waktu.
-
-Stateful widget adalah komponen UI yang dapat memiliki keadaan internal (state) yang dapat berubah selama siklus hidup aplikasi. Keadaan ini dapat berisi data atau informasi yang diperlukan untuk mengubah tampilan atau perilaku widget.
-Stateful widget berguna ketika kita perlu mengganti tampilan atau perilaku komponen UI berdasarkan perubahan data atau input pengguna.
-Untuk mengelola keadaan dalam stateful widget, kita perlu menggunakan objek "State" yang terkait dengan widget tersebut. Objek State ini dapat diubah selama aplikasi berjalan, dan perubahan ini akan memicu pembaruan tampilan widget.
-
-## Widget-Widget di Tugas Ini dan Fungsinya
-1. `MaterialApp`: Widget utama yang digunakan untuk menginisialisasi aplikasi. Biasanya merupakan parent utama dari widget kita. Biasanya digunakan untuk mengatur tema dan color palette dari applikasi kita..
-
-2. `Scaffold`: Scaffold adalah template dasar yang digunakan untuk membuat tampilan seperti applikasi pada umumnya. Scaffold memiliki parameter `appbar`, dan `drawer` sebagai navigasi utama pada applikasi kita.
-
-3. `AppBar`: Widget yang digunakan untuk membuat AppBar (Panel yang ada di atas applikasi).
-
-4. `SingleChildScrollView`: Widget yang memungkinkan childnya dapat discroll. Digunakan untuk membungkus konten utama.
-
-5. `Padding`: Digunakan untuk memberikan padding pada childnya.
-
-6. `Column`: Widget yang menampilkan elemen-elemen secara vertikal, child dari widget ini adalah list of widget / kumpulan dari widget yang akan disusun secara vertikal.
-
-7. `Text`: Widget untuk menampilkan teks. Dapat pula diatur font, warna, dan styling text disini.
-
-8. `Center`: Digunakan untuk mengatur childnya pada posisi ke tengah secara horizontal dan vertikal.
-
-9. `GridView.count`: Digunakan untuk membuat grid layout dengan jumlah kolom yang diberikan.
-
-10. `InkWell`: Digunakan untuk memberikan efek sentuhan. Ini memungkinkan untuk menangani interaksi pengguna. Biasanya diterapkan pada button.
-
-11. `Icon`: Digunakan untuk menampilkan ikon.
-
-12. `SnackBar`: Ini adalah widget yang digunakan untuk menampilkan pesan singkat di bagian bawah layar.
-
-## Implementasi
-### 1. Membuat Proyek Flutter Baru
-```sh
-flutter create trading_inventory_mobile
-```
-
-### 2. Membuat File `menu.dart`
-Kita perlu memodifikasi `main.dart` agar dapat mereturn widget yang ada di `menu.dart`
-```dart
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
-        useMaterial3: true,
-      ),
-      home: MyHomePage(),
-    );
-  }
-}
-```
-
-### 3. Memodifikasi File `menu.dart`
-Kita sekarang tinggal perlu menyusun apa yang mau ditampilkan di `menu.dart`.
-```dart
 import 'package:flutter/material.dart';
 
 class ShopItem {
@@ -147,7 +81,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Shopping List',
+          'Asdos Tracker',
         ),
       ),
       body: SingleChildScrollView(
@@ -189,5 +123,5 @@ class MyHomePage extends StatelessWidget {
       ),
     );
   }
+
 }
-```
