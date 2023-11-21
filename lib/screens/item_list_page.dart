@@ -1,4 +1,5 @@
 import 'package:asdos_tracker_mobile/model/Item.dart';
+import 'package:asdos_tracker_mobile/screens/login.dart';
 import 'package:asdos_tracker_mobile/screens/oneitem.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -8,27 +9,26 @@ import 'dart:convert';
 import 'package:asdos_tracker_mobile/widgets/left_drawer.dart';
 
 class ItemPage extends StatefulWidget {
-    const ItemPage({Key? key}) : super(key: key);
+  const ItemPage({Key? key}) : super(key: key);
 
-    @override
-    _ItemPageState createState() => _ItemPageState();
+  @override
+  _ItemPageState createState() => _ItemPageState();
 }
 
 class _ItemPageState extends State<ItemPage> {
   Future<List<Item>> fetchItem() async {
     // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-    var url = Uri.parse('http://127.0.0.1:8000/json/');
+    String uname = LoginPage.uname;
+
+    var url = Uri.parse('http://127.0.0.1:8000/get-item-flutter/$uname/');
+    // var url = Uri.parse('http://localhost:8000/get-items/');
     var response = await http.get(
       url,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json"
-      },
+      headers: {"Content-Type": "application/json"},
     );
-
+    // print(response.body);
     // melakukan decode response menjadi bentuk json
     var data = jsonDecode(utf8.decode(response.bodyBytes));
-    // print(data);
     // melakukan konversi data json menjadi object Item
     List<Item> list_Item = [];
     for (var d in data) {
@@ -52,13 +52,15 @@ class _ItemPageState extends State<ItemPage> {
               if (snapshot.data == null) {
                 return const Center(child: CircularProgressIndicator());
               } else {
-                if (!snapshot.hasData) {
+                // print(snapshot.data.length == 0);
+                if (snapshot.data.length == 0) {
                   return const Column(
                     children: [
                       Text(
                         "Tidak ada data item.",
-                        style:
-                            TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 19, 20, 21),
+                            fontSize: 20),
                       ),
                       SizedBox(height: 8),
                     ],
@@ -68,7 +70,12 @@ class _ItemPageState extends State<ItemPage> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (_, index) => InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => ItemDetailPage(item: snapshot.data![index],)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ItemDetailPage(
+                                      item: snapshot.data![index],
+                                    )));
                       },
                       child: Container(
                         margin: const EdgeInsets.symmetric(

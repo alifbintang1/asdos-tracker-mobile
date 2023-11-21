@@ -26,6 +26,7 @@ class LoginApp extends StatelessWidget {
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+  static String uname = "";
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -48,8 +49,8 @@ class _LoginPageState extends State<LoginPage> {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-              Color.fromARGB(255, 4, 118, 40),
-              Color.fromARGB(255, 187, 211, 68)
+              Color.fromARGB(255, 118, 4, 42),
+              Color.fromARGB(255, 211, 68, 80)
             ])),
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -102,8 +103,9 @@ class _LoginPageState extends State<LoginPage> {
 
                 if (request.loggedIn) {
                   String message = response['message'];
-                  String uname = response['username'];
-                  
+                  LoginPage.uname = response['username'];
+                  String uname = LoginPage.uname;
+
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => MyHomePage()),

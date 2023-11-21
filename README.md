@@ -1,3 +1,108 @@
+# Tugas 9
+## Apakah bisa kita melakukan pengambilan data JSON tanpa membuat model terlebih dahulu? Jika iya, apakah hal tersebut lebih baik daripada membuat model sebelum melakukan pengambilan data JSON?
+Ya, bisa dilakukan pengambilan data JSON tanpa membuat model terlebih dahulu. Pendekatan ini disebut sebagai "parsing" atau "deserialisasi" JSON, di mana data JSON diubah menjadi struktur data yang dapat digunakan dalam bahasa pemrograman tertentu. Hal ini bergantung pada kebutuhan dan kompleksitas data. Jika struktur data JSON sederhana dan langsung dapat digunakan, tanpa perlu pemodelan tambahan, pendekatan ini bisa lebih efisien. Namun, jika data kompleks atau memerlukan transformasi khusus, pembuatan model atau skema dapat membantu dalam pemahaman dan manipulasi data dengan lebih baik. Keputusan antara keduanya tergantung pada kompleksitas tugas dan kebutuhan aplikasi.
+
+## Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.
+CookieRequest mungkin merujuk pada sebuah kelas atau objek dalam konteks aplikasi Flutter yang menangani permintaan atau informasi terkait cookie dalam suatu aplikasi. Membagikan instance CookieRequest ke semua komponen dalam aplikasi Flutter dapat memberikan akses yang konsisten dan terkoordinasi terhadap data cookie di seluruh aplikasi. Dengan demikian, setiap komponen dapat berinteraksi dengan cookie secara terpusat dan dapat mengakses atau memodifikasinya sesuai kebutuhan tanpa perlu mengulang proses pengelolaan cookie di setiap bagian aplikasi. Hal ini dapat meningkatkan efisiensi pengelolaan cookie, mengurangi duplikasi kode, dan memastikan konsistensi data di seluruh aplikasi.
+
+## Jelaskan mekanisme pengambilan data dari JSON hingga dapat ditampilkan pada Flutter.
+Mekanisme pengambilan data dari JSON hingga ditampilkan pada Flutter melibatkan beberapa langkah. Pertama, data JSON diambil melalui API atau dari penyimpanan lokal. Kemudian, Flutter menggunakan package seperti http untuk mengirim permintaan HTTP dan mendapatkan respons JSON dari server. Data JSON kemudian di-decode menggunakan library seperti dart:convert untuk mengubahnya menjadi objek Dart. Setelah data di-decode, nilai-nilai tersebut dapat digunakan dalam Flutter untuk mengisi widget seperti ListView atau GridView, atau untuk meng-update state dan menampilkan informasi pada antarmuka pengguna menggunakan widget seperti Text atau Image. Proses ini memungkinkan pengembang Flutter untuk mengambil dan menampilkan data dinamis dengan mudah pada aplikasi mereka.
+
+## Jelaskan mekanisme autentikasi dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.
+
+Mekanisme autentikasi dari input data akun pada Flutter ke Django melibatkan beberapa langkah. Pertama, pengguna memasukkan informasi akun seperti username dan password melalui antarmuka pengguna Flutter. Data ini dikirim ke server Django melalui permintaan HTTP, yang kemudian diproses oleh API Django. Django menggunakan sistem autentikasi bawaan atau pustaka pihak ketiga seperti Django Rest Framework untuk memverifikasi kredensial pengguna. Jika autentikasi berhasil, server Django menghasilkan token akses yang dikirim kembali ke aplikasi Flutter. Aplikasi Flutter kemudian menyimpan token ini secara lokal untuk digunakan dalam permintaan berikutnya.
+
+Setelah proses autentikasi selesai, menu pada Flutter dapat ditampilkan berdasarkan status otentikasi pengguna. Aplikasi dapat membuat permintaan ke endpoint tertentu pada Django yang memerlukan otorisasi, dan token akses disertakan dalam setiap permintaan untuk memverifikasi identitas pengguna. Django kemudian memproses permintaan tersebut dan memberikan respons yang sesuai, memungkinkan aplikasi Flutter untuk menampilkan menu atau konten yang sesuai dengan hak akses pengguna yang sudah diautentikasi. Proses ini memastikan bahwa hanya pengguna yang sah yang dapat mengakses bagian tertentu dari aplikasi berbasis Flutter yang terhubung ke backend Django.
+
+## Sebutkan seluruh widget yang kamu pakai pada tugas ini dan jelaskan fungsinya masing-masing.
+1. MaterialApp: Widget utama untuk konfigurasi aplikasi Flutter.
+2. Scaffold: Widget yang menyediakan struktur dasar untuk antarmuka visual aplikasi, termasuk AppBar dan body.
+3. AppBar: Menampilkan bilah aplikasi di bagian atas layar.
+4. Container: Digunakan untuk styling dengan memberikan latar belakang gradient.
+5. Column: Menyusun widget-widget anak secara vertikal.
+6. Stack: Menempatkan widget-widget anak di atas satu sama lain.
+7. Text: Menampilkan teks dengan gaya tertentu.
+8. TextField: Input teks untuk memasukkan username dan password.
+9. ElevatedButton: Tombol dengan latar belakang terisi. Digunakan untuk tombol login.
+10. GestureDetector: Mendeteksi gesture. Digunakan untuk membuat teks "Create New Account" dapat diklik.
+11. Navigator: Digunakan untuk navigasi antar halaman.
+12. Form: Kontainer untuk elemen-elemen formulir. Memungkinkan validasi dan pengiriman formulir.
+13. GlobalKey: Kunci global untuk mengakses state Form.
+14. TextFormField: Elemen formulir spesifik untuk menangani input teks.
+15. Icon: Ikon grafis. Digunakan untuk ikon di samping kolom input.
+16. TextButton: Tombol dengan tampilan datar. Digunakan untuk tombol "Submit".
+17. Navigator: Digunakan untuk navigasi antar halaman.
+18. Drawer: Menu sisi kiri yang dapat diakses dengan menggeser dari kiri.
+19. FutureBuilder: Widget untuk membangun antarmuka berdasarkan hasil masa depan (asynchronous).
+20. ListView.builder: Menampilkan daftar item dengan builder callback.
+21. InkWell: Widget yang mendeteksi ketukan dan memberikan respons visual.
+
+## Implementasi
+
+### Django
+#### Persiapan Awal:
+
+Buat django-app 'authentication'.
+
+Tambahkan 'authentication' ke INSTALLED_APPS.
+
+Install django-cors-headers.
+
+Tambahkan 'corsheaders' ke INSTALLED_APPS.
+
+Tambahkan middleware CorsMiddleware.
+
+Atur variabel CORS_ALLOW_ALL_ORIGINS dan lainnya pada settings.py.
+
+#### Implementasi Login:
+
+Buat metode view untuk login pada authentication/views.py.
+
+Buat file urls.py di folder authentication untuk routing login.
+
+Tambahkan path('auth/', include('authentication.urls')) di main project urls.py.
+
+#### Implementasi Logout:
+
+Buat metode view untuk logout pada authentication/views.py.
+
+Tambahkan path('logout/', logout, name='logout') di authentication/urls.py.
+
+### Flutter Implementation:
+#### Persiapan Awal:
+
+Install package provider dan pbp_django_auth.
+
+Modifikasi root widget di main.dart menggunakan Provider.
+
+#### Halaman Login:
+
+Buat file login.dart di folder screens untuk halaman login.
+
+Integrasi dengan Django pada main.dart.
+
+#### Model Kustom:
+
+Gunakan Quicktype untuk membuat model Dart dari JSON Django.
+
+#### Fetch Data dari Django:
+
+Tambahkan package http untuk melakukan HTTP request.
+
+Fetch data dari Django untuk ditampilkan di aplikasi Flutter.
+
+#### Form dan Fetch Data:
+
+Hubungkan halaman shoplist_form.dart dengan CookieRequest.
+
+Perbarui tombol tambah untuk mengirim data ke Django.
+
+#### Implementasi Logout:
+
+Tambahkan fungsi logout di proyek Django dan implementasikan di aplikasi Flutter.
+
+Hubungkan fungsi logout dengan widget Inkwell di shop_card.dart.
+
 # Tugas 8
 ## Perbedaan Navigator.push() dan Navigator.pushReplacement()
 __Navigator.push()__: Digunakan untuk menambahkan halaman baru ke dalam tumpukan halaman (page stack). Misalnya, jika kita memiliki tumpukan halaman A -> B, dan menggunakan Navigator.push() dari halaman B, maka halaman C ditambahkan ke tumpukan, sehingga tumpukan menjadi A -> B -> C. Contohnya dipakai ketika ingin dari page Homepage ke page LihatDaftarItem, maka logikanya kita bisa back ke page Homepage lagi.
